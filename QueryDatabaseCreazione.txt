@@ -1,0 +1,45 @@
+CREATE TABLE TabellaPiatti (
+    IdPiatto           INTEGER        PRIMARY KEY AUTOINCREMENT,
+    TipoPiatto         STRING,
+    AllergeniContenuti STRING,
+    StagionePiatto     STRING,
+    PrezzoPiatto       DECIMAL (8, 2),
+    DescizionePiatto   STRING
+);
+
+PRAGMA foreign_keys = 0;
+
+CREATE TABLE sqlitestudio_temp_table AS SELECT *
+                                          FROM TabellaPiatti;
+
+DROP TABLE TabellaPiatti;
+
+CREATE TABLE TabellaPiatti (
+    IdPiatto           INTEGER        PRIMARY KEY AUTOINCREMENT,
+    NomePiatto         STRING,
+    TipoPiatto         STRING,
+    AllergeniContenuti STRING,
+    StagionePiatto     STRING,
+    PrezzoPiatto       DECIMAL (8, 2),
+    DescizionePiatto   STRING
+);
+
+INSERT INTO TabellaPiatti (
+                              IdPiatto,
+                              TipoPiatto,
+                              AllergeniContenuti,
+                              StagionePiatto,
+                              PrezzoPiatto,
+                              DescizionePiatto
+                          )
+                          SELECT IdPiatto,
+                                 TipoPiatto,
+                                 AllergeniContenuti,
+                                 StagionePiatto,
+                                 PrezzoPiatto,
+                                 DescizionePiatto
+                            FROM sqlitestudio_temp_table;
+
+DROP TABLE sqlitestudio_temp_table;
+
+PRAGMA foreign_keys = 1;

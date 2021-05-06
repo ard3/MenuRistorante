@@ -1,0 +1,138 @@
+﻿@page "/gestionepiatti"
+@inject MenuRistorante.Data.PiattiDatabase dbPiatti
+<h1>GestionePiatti</h1>
+<br />
+@if (nuovoPiatto == null)
+{
+
+    <button class="btn btn-primary" @onclick="(e => AggiungiPiatto())">Aggiungi Piatto</button>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Numero del Piatto</th>
+                <th>Nome del piatto</th>
+                <th>Tipo del Piatto</th>
+                <th>Allergeni Contenuti</th>
+                <th>Stagione del Piatto</th>
+                <th>Prezzo del Piatto</th>
+                <th>Descizione</th>
+                <th width="1%">Modifica Piatto</th>
+                <th width="1%">Cancella Piatto</th>
+            </tr>
+        </thead>
+        @foreach (MenuRistorante.Data.PiattiRistorante singoloPiatto in dbPiatti.TabellaPiatti)
+        {
+    <tr>
+        <td>@singoloPiatto.IdPiatto</td>
+        <td>@singoloPiatto.NomePiatto</td>
+        <td>@singoloPiatto.TipoPiatto</td>
+        <td>@singoloPiatto.AllergeniContenuti</td>
+        <td>@singoloPiatto.StagionePiatto</td>
+        <td>@singoloPiatto.PrezzoPiatto</td>
+        <td>@singoloPiatto.DescizionePiatto</td>
+        <td>
+            <button class="btn btn-primary" @onclick="(e => ModificaPiatto(singoloPiatto))">
+                <span class="oi oi-pencil" style="color: white"></span>
+            </button>
+        </td>
+        <td>
+            <button class="btn btn-danger" @onclick="(e => CancellaPiatto(singoloPiatto))">
+                <span class="oi oi-trash" style="color: white"></span>
+            </button>
+        </td>
+    </tr>
+        }
+    </table>
+
+}
+else
+{
+
+<form>
+    <label>
+        Nome del piatto
+        <input @bind-value="nuovoPiatto.NomePiatto" type="text" />
+    </label><br />
+
+    <label>
+        Tipo del Piatto
+        <select class="form-control" id="tipoPiatto" @bind="nuovoPiatto.TipoPiatto">
+            <option value="Seleziona" default>Seleziona il tipo del piatto</option>
+            <option value="Antipasto">Antipasto</option>
+            <option value="Primo">Primo</option>
+            <option value="Secondo">Secondo</option>
+            <option value="Contorno">Contorno</option>
+            <option value="Dolce">Dolce</option>
+        </select>
+    </label><br />
+    <label>
+        Allergeni contenuti
+        <select class="form-control" id="allergeni" @bind="nuovoPiatto.AllergeniContenuti">
+            <option value="M/F" default>Seleziona Allergeni</option>
+            <option value="Glutine">Glutine</option>
+            <option value="Gova">Gova</option>Glutine/Gova/Noci/Crostacei
+            <option value="Noci">Noci</option>
+            <option value="Crostacei">Crostacei</option>
+        </select>
+    </label><br />
+    <label>
+        Stagione del piatto
+        <select class="form-control" id="stagione" @bind="nuovoPiatto.StagionePiatto">
+            <option value="Seleziona stagione" default>Seleziona Stagione</option>
+            <option value="Inverno">Inverno</option>
+            <option value="Primavera">Primavera</option>
+            <option value="Estate">Estate</option>
+            <option value="Autunno">Autunno</option>
+        </select>
+    </label><br />
+    <label>
+        Prezzo del piatto
+        <input @bind-value="nuovoPiatto.PrezzoPiatto" type="number" />
+    </label><br />
+    <label>
+        Descrizione piatto
+        <input @bind-value="nuovoPiatto.DescizionePiatto" type="text" />
+    </label><br />
+
+    <br /><button class="btn btn-primary" @onclick="(e => SalvaPiatto())">Salva</button>
+    <button class="btn btn-danger" @onclick="(e => AnnullaPiatto())">Annulla</button>
+</form>
+}
+
+
+@code {
+    public MenuRistorante.Data.PiattiRistorante nuovoPiatto;
+
+    private void AggiungiPiatto()
+    {
+        nuovoPiatto = new MenuRistorante.Data.PiattiRistorante();
+    }
+    public void ModificaPiatto(MenuRistorante.Data.PiattiRistorante PiattoDaModificare)
+    {
+        nuovoPiatto = PiattoDaModificare;
+    }
+    public void CancellaPiatto(MenuRistorante.Data.PiattiRistorante PiattoDaCancellare)
+    {
+        dbPiatti.TabellaPiatti.Remove(PiattoDaCancellare);
+        dbPiatti.SaveChanges();
+    }
+    public void SalvaPiatto()
+    {
+        if (nuovoPiatto.IdPiatto == 0)
+        {
+            dbPiatti.TabellaPiatti.Add(nuovoPiatto);
+        }
+        else
+        {
+            dbPiatti.TabellaPiatti.Update(nuovoPiatto);
+        }
+        dbPiatti.SaveChanges();
+        nuovoPiatto = null;
+    }
+    public void AnnullaPiatto()
+    {
+        nuovoPiatto = null;
+    }
+}
+
