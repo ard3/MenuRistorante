@@ -30,5 +30,7 @@ namespace MenuRistorante.Data
 
         public string DescizionePiatto { get; set; }
 
+        [Required(ErrorMessage = "Devi inserire un indirizzo di consegna ! ")]
+        public string IndirizzoConsegna { get; set; }
     }
 }

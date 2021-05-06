@@ -1,24 +1,26 @@
 ﻿@page "/gestionepiatti"
 @inject MenuRistorante.Data.PiattiDatabase dbPiatti
-<h1>GestionePiatti</h1>
+<h1>Gestione ordini/Modifica ordine</h1>
+<p>Il gestore degli ordini permette di aggiungere, modificare e cancellare ordini.</p>
 <br />
 @if (nuovoPiatto == null)
 {
 
-    <button class="btn btn-primary" @onclick="(e => AggiungiPiatto())">Aggiungi Piatto</button>
+    <button class="btn btn-primary" @onclick="(e => AggiungiPiatto())">Aggiungi ordine</button>
 
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Numero del Piatto</th>
+                <th>Numero del ordine</th>
                 <th>Nome del piatto</th>
                 <th>Tipo del Piatto</th>
                 <th>Allergeni Contenuti</th>
                 <th>Stagione del Piatto</th>
                 <th>Prezzo del Piatto</th>
                 <th>Descizione</th>
-                <th width="1%">Modifica Piatto</th>
-                <th width="1%">Cancella Piatto</th>
+                <th>Indirizzo consegna</th>
+                <th width="1%">Modifica ordine</th>
+                <th width="1%">Cancella ordine</th>
             </tr>
         </thead>
         @foreach (MenuRistorante.Data.PiattiRistorante singoloPiatto in dbPiatti.TabellaPiatti)
@@ -31,6 +33,8 @@
         <td>@singoloPiatto.StagionePiatto</td>
         <td>@singoloPiatto.PrezzoPiatto</td>
         <td>@singoloPiatto.DescizionePiatto</td>
+        <td>@singoloPiatto.IndirizzoConsegna</td>
+
         <td>
             <button class="btn btn-primary" @onclick="(e => ModificaPiatto(singoloPiatto))">
                 <span class="oi oi-pencil" style="color: white"></span>
@@ -52,6 +56,7 @@ else
 <form>
     <label>
         Nome del piatto
+
         <input @bind-value="nuovoPiatto.NomePiatto" type="text" />
     </label><br />
 
@@ -69,7 +74,7 @@ else
     <label>
         Allergeni contenuti
         <select class="form-control" id="allergeni" @bind="nuovoPiatto.AllergeniContenuti">
-            <option value="M/F" default>Seleziona Allergeni</option>
+            <option value="Seleziona" default>Seleziona Allergeni</option>
             <option value="Glutine">Glutine</option>
             <option value="Gova">Gova</option>Glutine/Gova/Noci/Crostacei
             <option value="Noci">Noci</option>
@@ -93,6 +98,10 @@ else
     <label>
         Descrizione piatto
         <input @bind-value="nuovoPiatto.DescizionePiatto" type="text" />
+    </label><br />
+    <label>
+        Indirizzo di consegna
+        <input @bind-value="nuovoPiatto.IndirizzoConsegna" type="text" />
     </label><br />
 
     <br /><button class="btn btn-primary" @onclick="(e => SalvaPiatto())">Salva</button>
