@@ -41,6 +41,8 @@ __________
 
 La pagina di gestione sistema centralizzato di consegne a
 domicilio per un ristorante permette la visualizzazione di una tabella collegata al database, con pulsanti che permettono operazioni di crud e permettono di andare ad un form per modificare un ordine.
+![GestioneOrdini](https://user-images.githubusercontent.com/73218491/117292946-13b37e80-ae71-11eb-941c-295d869ffe5f.png)
+![aggiungiModificaordine](https://user-images.githubusercontent.com/73218491/117293969-5f1a5c80-ae72-11eb-9876-5477f817911c.JPG)
 
 
 
