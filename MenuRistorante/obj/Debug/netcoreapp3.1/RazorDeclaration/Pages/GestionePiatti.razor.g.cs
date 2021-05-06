@@ -84,7 +84,7 @@ using MenuRistorante.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 114 "C:\Users\ardit\source\repos\MenuRistorante\MenuRistorante\Pages\GestionePiatti.razor"
+#line 121 "C:\Users\ardit\source\repos\MenuRistorante\MenuRistorante\Pages\GestionePiatti.razor"
        
     public MenuRistorante.Data.PiattiRistorante nuovoPiatto;
 

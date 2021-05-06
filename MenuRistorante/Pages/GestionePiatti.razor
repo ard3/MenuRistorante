@@ -18,6 +18,7 @@
                 <th>Stagione del Piatto</th>
                 <th>Prezzo del Piatto</th>
                 <th>Descizione</th>
+                <th>Quantita</th>
                 <th>Indirizzo consegna</th>
                 <th width="1%">Modifica ordine</th>
                 <th width="1%">Cancella ordine</th>
@@ -33,6 +34,7 @@
         <td>@singoloPiatto.StagionePiatto</td>
         <td>@singoloPiatto.PrezzoPiatto</td>
         <td>@singoloPiatto.DescizionePiatto</td>
+        <td>@singoloPiatto.Quantita</td>
         <td>@singoloPiatto.IndirizzoConsegna</td>
 
         <td>
@@ -99,6 +101,11 @@ else
     <label>
         Descrizione piatto
         <input @bind-value="nuovoPiatto.DescizionePiatto" type="text" />
+    </label><br />
+    <label>
+       Quantità
+
+        <input @bind-value="nuovoPiatto.Quantita" type="number" />
     </label><br />
     <label>
         Indirizzo di consegna
